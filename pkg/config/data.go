@@ -1,12 +1,17 @@
 package config
 
 import (
+	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
+	"time"
 
 	"github.com/BurntSushi/toml"
 	"github.com/fastly/cli/pkg/api"
+	"github.com/fastly/cli/pkg/filesystem"
 )
 
 // Source enumerates where a config parameter is taken from.
@@ -118,11 +123,52 @@ type File struct {
 	Email            string `toml:"email"`
 	Endpoint         string `toml:"endpoint"`
 	LastVersionCheck string `toml:"last_version_check"`
+
+	// Allow the API endpoint itself to be dynamically switched if we wanted it to
+	APIEndpoint string `toml:"api_endpoint"`
+}
+
+// Load gets the configuration file from the CLI API endpoint and encodes it
+// from disk into config.File.
+func (f *File) Load(configEndpoint string, httpClient api.HTTPClient) error {
+	fmt.Println("We were unable to locate a local configuration file required to use the CLI.")
+	fmt.Println("We will create that file for you now.")
+
+	f.APIEndpoint = configEndpoint
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, f.APIEndpoint, nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	_, err = toml.DecodeReader(resp.Body, f)
+	if err != nil {
+		return err
+	}
+
+	// Create the destination directory for the config file
+	basePath := strings.Split(FilePath, "config.toml")[0]
+	err = filesystem.MakeDirectoryIfNotExists(basePath)
+	if err != nil {
+		return err
+	}
+
+	// Write the new configuration back to disk.
+	return f.Write(FilePath)
 }
 
 // Read the File and populate its fields from the filename on disk.
-func (f *File) Read(filename string) error {
-	_, err := toml.DecodeFile(filename, f)
+func (f *File) Read(filePath string) error {
+	_, err := toml.DecodeFile(filePath, f)
 	return err
 }
 
