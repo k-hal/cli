@@ -189,10 +189,41 @@ func (f *ConfigFile) Load(configEndpoint string, httpClient api.HTTPClient) erro
 	return f.Write(FilePath)
 }
 
-// Read the File and populate its fields from the filename on disk.
+// Read decodes a toml file from the local disk into config.ConfigFile.
 func (f *ConfigFile) Read(filePath string) error {
 	_, err := toml.DecodeFile(filePath, f)
 	return err
+}
+
+// LoadDefaults populates config.ConfigFile with default values.
+//
+// This is used in the scenario where the remote endpoint containing dynamic
+// configuration data has either failed to load or we've been unsuccessful in
+// writing the data back to disk.
+//
+// TODO: refactor when go 1.16 arrives to use the //go:embed directive
+// https://tip.golang.org/pkg/embed/
+func (f *ConfigFile) LoadDefaults() error {
+	defaults := `[fastly]
+api_endpoint = "https://api.fastly.com"
+
+[cli]
+remote_config = "http://integralist-cli-dynamic-config.com.global.prod.fastly.net/cli/config"
+ttl = "1h"
+last_checked = "%s"
+
+[language]
+  [language.rust]
+  toolchain_version = "1.46.0"
+  wasm_wasi_target = "wasm32-wasi"`
+
+	defaults = fmt.Sprintf(defaults, time.Now().Format(time.RFC3339))
+
+	if _, err := toml.Decode(defaults, f); err != nil {
+		return err
+	}
+
+	return f.Write(FilePath)
 }
 
 // Write the instance of ConfigFile to a local application config file.
