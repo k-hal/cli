@@ -436,6 +436,7 @@ func TestBuildRust(t *testing.T) {
 	for _, testcase := range []struct {
 		name                 string
 		args                 []string
+		applicationConfig    config.ConfigFile
 		fastlyManifest       string
 		cargoManifest        string
 		cargoLock            string
@@ -472,16 +473,32 @@ func TestBuildRust(t *testing.T) {
 			wantError:      "unsupported language javascript",
 		},
 		{
-			name:           "error reading cargo metadata",
-			args:           []string{"compute", "build"},
+			name: "error reading cargo metadata",
+			args: []string{"compute", "build"},
+			applicationConfig: config.ConfigFile{
+				Language: config.ConfigLanguage{
+					Rust: config.ConfigRust{
+						ToolchainVersion: "1.46.0",
+						WasmWasiTarget:   "wasm32-wasi",
+					},
+				},
+			},
 			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
 			cargoManifest:  "[package]\nname = \"test\"",
 			client:         versionClient{fastlyVersions: []string{"0.4.0"}},
 			wantError:      "reading cargo metadata",
 		},
 		{
-			name:           "fastly-sys crate not found",
-			args:           []string{"compute", "build"},
+			name: "fastly-sys crate not found",
+			args: []string{"compute", "build"},
+			applicationConfig: config.ConfigFile{
+				Language: config.ConfigLanguage{
+					Rust: config.ConfigRust{
+						ToolchainVersion: "1.46.0",
+						WasmWasiTarget:   "wasm32-wasi",
+					},
+				},
+			},
 			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.3.2\"",
 			cargoLock:      "[[package]]\nname = \"test\"\nversion = \"0.1.0\"\n\n[[package]]\nname = \"fastly\"\nversion = \"0.3.2\"",
@@ -493,8 +510,16 @@ func TestBuildRust(t *testing.T) {
 			wantRemediationError: "fastly = \"^0.4.0\"",
 		},
 		{
-			name:           "fastly-sys crate out-of-date",
-			args:           []string{"compute", "build"},
+			name: "fastly-sys crate out-of-date",
+			args: []string{"compute", "build"},
+			applicationConfig: config.ConfigFile{
+				Language: config.ConfigLanguage{
+					Rust: config.ConfigRust{
+						ToolchainVersion: "1.46.0",
+						WasmWasiTarget:   "wasm32-wasi",
+					},
+				},
+			},
 			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.4.0\"",
 			cargoLock:      "[[package]]\nname = \"fastly-sys\"\nversion = \"0.3.7\"",
@@ -506,8 +531,16 @@ func TestBuildRust(t *testing.T) {
 			wantRemediationError: "fastly = \"^0.5.0\"",
 		},
 		{
-			name:           "fastly crate prerelease",
-			args:           []string{"compute", "build"},
+			name: "fastly crate prerelease",
+			args: []string{"compute", "build"},
+			applicationConfig: config.ConfigFile{
+				Language: config.ConfigLanguage{
+					Rust: config.ConfigRust{
+						ToolchainVersion: "1.46.0",
+						WasmWasiTarget:   "wasm32-wasi",
+					},
+				},
+			},
 			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
 			cargoManifest: strings.Join([]string{
 				"[package]",
@@ -531,8 +564,16 @@ func TestBuildRust(t *testing.T) {
 			wantOutputContains: "Built rust package test",
 		},
 		{
-			name:           "Rust success",
-			args:           []string{"compute", "build"},
+			name: "Rust success",
+			args: []string{"compute", "build"},
+			applicationConfig: config.ConfigFile{
+				Language: config.ConfigLanguage{
+					Rust: config.ConfigRust{
+						ToolchainVersion: "1.46.0",
+						WasmWasiTarget:   "wasm32-wasi",
+					},
+				},
+			},
 			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.6.0\"",
 			cargoLock:      "[[package]]\nname = \"fastly\"\nversion = \"0.6.0\"\n\n[[package]]\nname = \"fastly-sys\"\nversion = \"0.3.7\"",
@@ -567,7 +608,7 @@ func TestBuildRust(t *testing.T) {
 			var (
 				args                           = testcase.args
 				env                            = config.Environment{}
-				file                           = config.ConfigFile{}
+				file                           = testcase.applicationConfig
 				appConfigFile                  = "/dev/null"
 				clientFactory                  = mock.APIClient(mock.API{})
 				httpClient                     = testcase.client
