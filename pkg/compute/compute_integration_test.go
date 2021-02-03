@@ -582,7 +582,9 @@ func TestBuildRust(t *testing.T) {
 			applicationConfig: config.File{
 				Language: config.ConfigLanguage{
 					Rust: config.ConfigRust{
-						ToolchainVersion: "1.46.0",
+						// TODO: pull actual version from .github/workflows/pr_test.yml
+						// when doing local run of integration tests.
+						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
 					},
 				},
@@ -598,7 +600,7 @@ func TestBuildRust(t *testing.T) {
 			applicationConfig: config.File{
 				Language: config.ConfigLanguage{
 					Rust: config.ConfigRust{
-						ToolchainVersion: "1.46.0",
+						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
 					},
 				},
@@ -619,7 +621,7 @@ func TestBuildRust(t *testing.T) {
 			applicationConfig: config.File{
 				Language: config.ConfigLanguage{
 					Rust: config.ConfigRust{
-						ToolchainVersion: "1.46.0",
+						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
 					},
 				},
@@ -640,7 +642,7 @@ func TestBuildRust(t *testing.T) {
 			applicationConfig: config.File{
 				Language: config.ConfigLanguage{
 					Rust: config.ConfigRust{
-						ToolchainVersion: "1.46.0",
+						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
 					},
 				},
@@ -673,7 +675,7 @@ func TestBuildRust(t *testing.T) {
 			applicationConfig: config.File{
 				Language: config.ConfigLanguage{
 					Rust: config.ConfigRust{
-						ToolchainVersion: "1.46.0",
+						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
 					},
 				},
