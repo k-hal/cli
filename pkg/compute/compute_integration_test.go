@@ -602,6 +602,7 @@ func TestBuildRust(t *testing.T) {
 					Rust: config.ConfigRust{
 						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
+						FastlySys:        "0.0.0", // included to prevent an error when creating new semantic version instance
 					},
 				},
 			},
@@ -609,10 +610,9 @@ func TestBuildRust(t *testing.T) {
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.3.2\"",
 			cargoLock:      "[[package]]\nname = \"test\"\nversion = \"0.1.0\"\n\n[[package]]\nname = \"fastly\"\nversion = \"0.3.2\"",
 			client: versionClient{
-				fastlyVersions:    []string{"0.4.0"},
-				fastlySysVersions: []string{"0.0.0"}, // included to stop REST API failing to not find crate
+				fastlyVersions: []string{"0.4.0"},
 			},
-			wantError:            "fastly-sys crate not found",
+			wantError:            "fastly-sys crate not found", // because fastly <0.4.0 has no fastly-sys
 			wantRemediationError: "fastly = \"^0.4.0\"",
 		},
 		{
@@ -623,6 +623,7 @@ func TestBuildRust(t *testing.T) {
 					Rust: config.ConfigRust{
 						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
+						FastlySys:        "0.4.0", // included to prevent an error when creating new semantic version instance (we use this as a semver constraint value)
 					},
 				},
 			},
@@ -630,8 +631,7 @@ func TestBuildRust(t *testing.T) {
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.4.0\"",
 			cargoLock:      "[[package]]\nname = \"fastly-sys\"\nversion = \"0.3.7\"",
 			client: versionClient{
-				fastlyVersions:    []string{"0.5.0"},
-				fastlySysVersions: []string{"0.4.0"},
+				fastlyVersions: []string{"0.5.0"},
 			},
 			wantError:            "fastly crate not up-to-date",
 			wantRemediationError: "fastly = \"^0.5.0\"",
@@ -644,6 +644,7 @@ func TestBuildRust(t *testing.T) {
 					Rust: config.ConfigRust{
 						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
+						FastlySys:        "0.0.0", // included to prevent an error when creating new semantic version instance
 					},
 				},
 			},
@@ -664,8 +665,7 @@ func TestBuildRust(t *testing.T) {
 				"version = \"0.6.0\"",
 			}, "\n"),
 			client: versionClient{
-				fastlyVersions:    []string{"0.6.0"},
-				fastlySysVersions: []string{"0.3.7"},
+				fastlyVersions: []string{"0.6.0"},
 			},
 			wantOutputContains: "Built rust package test",
 		},
@@ -677,6 +677,7 @@ func TestBuildRust(t *testing.T) {
 					Rust: config.ConfigRust{
 						ToolchainVersion: "1.49.0",
 						WasmWasiTarget:   "wasm32-wasi",
+						FastlySys:        "0.0.0", // included to prevent an error when creating new semantic version instance
 					},
 				},
 			},
@@ -684,8 +685,7 @@ func TestBuildRust(t *testing.T) {
 			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.6.0\"",
 			cargoLock:      "[[package]]\nname = \"fastly\"\nversion = \"0.6.0\"\n\n[[package]]\nname = \"fastly-sys\"\nversion = \"0.3.7\"",
 			client: versionClient{
-				fastlyVersions:    []string{"0.6.0"},
-				fastlySysVersions: []string{"0.3.7"},
+				fastlyVersions: []string{"0.6.0"},
 			},
 			wantOutputContains: "Built rust package test",
 		},
