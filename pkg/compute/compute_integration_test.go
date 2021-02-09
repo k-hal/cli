@@ -558,23 +558,25 @@ func TestBuildRust(t *testing.T) {
 		{
 			name:           "empty language",
 			args:           []string{"compute", "build"},
-			fastlyManifest: "name = \"test\"\n",
+			fastlyManifest: `name = "test"`,
 			client:         versionClient{fastlyVersions: []string{"0.0.0"}},
 			wantError:      "language cannot be empty, please provide a language",
 		},
 		{
 			name:           "empty name",
 			args:           []string{"compute", "build"},
-			fastlyManifest: "language = \"rust\"\n",
+			fastlyManifest: `language = "rust"`,
 			client:         versionClient{fastlyVersions: []string{"0.0.0"}},
 			wantError:      "name cannot be empty, please provide a name",
 		},
 		{
-			name:           "unknown language",
-			args:           []string{"compute", "build"},
-			fastlyManifest: "name = \"test\"\nlanguage = \"javascript\"\n",
-			client:         versionClient{fastlyVersions: []string{"0.0.0"}},
-			wantError:      "unsupported language javascript",
+			name: "unknown language",
+			args: []string{"compute", "build"},
+			fastlyManifest: `
+			name = "test"
+			language = "foobar"`,
+			client:    versionClient{fastlyVersions: []string{"0.0.0"}},
+			wantError: "unsupported language foobar",
 		},
 		{
 			name: "error reading cargo metadata",
@@ -589,10 +591,14 @@ func TestBuildRust(t *testing.T) {
 					},
 				},
 			},
-			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
-			cargoManifest:  "[package]\nname = \"test\"",
-			client:         versionClient{fastlyVersions: []string{"0.4.0"}},
-			wantError:      "reading cargo metadata",
+			fastlyManifest: `
+			name = "test"
+			language = "rust"`,
+			cargoManifest: `
+			[package]
+			name = "test"`,
+			client:    versionClient{fastlyVersions: []string{"0.4.0"}},
+			wantError: "reading cargo metadata",
 		},
 		{
 			name: "fastly-sys crate not found",
@@ -608,9 +614,22 @@ func TestBuildRust(t *testing.T) {
 					},
 				},
 			},
-			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
-			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.3.2\"",
-			cargoLock:      "[[package]]\nname = \"test\"\nversion = \"0.1.0\"\n\n[[package]]\nname = \"fastly\"\nversion = \"0.3.2\"",
+			fastlyManifest: `
+			name = "test"
+			language = "rust"`,
+			cargoManifest: `
+			[package]
+			name = "test"
+			version = "0.1.0"
+			[dependencies]
+			fastly = "=0.3.2"`,
+			cargoLock: `
+			[[package]]
+			name = "test"
+			version = "0.1.0"
+			[[package]]
+			name = "fastly"
+			version = "0.3.2"`,
 			client: versionClient{
 				fastlyVersions: []string{"0.4.0"},
 			},
@@ -630,7 +649,9 @@ func TestBuildRust(t *testing.T) {
 					},
 				},
 			},
-			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
+			fastlyManifest: `
+			name = "test"
+			language = "rust"`,
 			client: versionClient{
 				fastlyVersions: []string{"0.6.0"},
 			},
@@ -650,22 +671,22 @@ func TestBuildRust(t *testing.T) {
 					},
 				},
 			},
-			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
-			cargoManifest: strings.Join([]string{
-				"[package]",
-				"name = \"test\"",
-				"version = \"0.1.0\"\n",
-				"[dependencies]",
-				"fastly = \"0.6.0\"",
-			}, "\n"),
-			cargoLock: strings.Join([]string{
-				"[[package]]",
-				"name = \"fastly-sys\"",
-				"version = \"0.3.7\"\n",
-				"[[package]]",
-				"name = \"fastly\"",
-				"version = \"0.6.0\"",
-			}, "\n"),
+			fastlyManifest: `
+			name = "test"
+			language = "rust"`,
+			cargoManifest: `
+			[package]
+			name = "test"
+			version = "0.1.0"
+			[dependencies]
+			fastly = "0.6.0"`,
+			cargoLock: `
+			[[package]]
+			name = "fastly-sys"
+			version = "0.3.7"
+			[[package]]
+			name = "fastly"
+			version = "0.6.0"`,
 			client: versionClient{
 				fastlyVersions: []string{"0.6.0"},
 			},
@@ -684,9 +705,22 @@ func TestBuildRust(t *testing.T) {
 					},
 				},
 			},
-			fastlyManifest: "name = \"test\"\nlanguage = \"rust\"\n",
-			cargoManifest:  "[package]\nname = \"test\"\nversion = \"0.1.0\"\n\n[dependencies]\nfastly = \"=0.6.0\"",
-			cargoLock:      "[[package]]\nname = \"fastly\"\nversion = \"0.6.0\"\n\n[[package]]\nname = \"fastly-sys\"\nversion = \"0.3.7\"",
+			fastlyManifest: `
+			name = "test"
+			language = "rust"`,
+			cargoManifest: `
+			[package]
+			name = "test"
+			version = "0.1.0"
+			[dependencies]
+			fastly = "=0.6.0"`,
+			cargoLock: `
+			[[package]]
+			name = "fastly"
+			version = "0.6.0"
+			[[package]]
+			name = "fastly-sys"
+			version = "0.3.7"`,
 			client: versionClient{
 				fastlyVersions: []string{"0.6.0"},
 			},
