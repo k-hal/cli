@@ -40,7 +40,7 @@ func TestConfigure(t *testing.T) {
 		stdin          string
 		wantError      string
 		wantOutput     []string
-		wantFile       []string
+		wantFile       string
 	}{
 		{
 			name: "endpoint from flag",
@@ -57,26 +57,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "http://local.dev"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "abcdef"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "http://local.dev"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "abcdef"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name:           "endpoint already in file should be replaced by flag",
@@ -95,26 +96,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "http://staging.dev"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "abcdef"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "http://staging.dev"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "abcdef"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name: "token from flag",
@@ -130,26 +132,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "https://api.fastly.com"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "abcdef"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "https://api.fastly.com"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "abcdef"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name:  "token from interactive input",
@@ -168,26 +171,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "https://api.fastly.com"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "1234"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "https://api.fastly.com"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "1234"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name: "token from environment",
@@ -204,26 +208,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "https://api.fastly.com"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "hello"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "https://api.fastly.com"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "hello"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name:           "token already in file should trigger interactive input",
@@ -243,26 +248,27 @@ func TestConfigure(t *testing.T) {
 				"Configured the Fastly CLI",
 				"You can find your configuration file at",
 			},
-			wantFile: []string{
-				`[fastly]`,
-				`  api_endpoint = "https://api.fastly.com"`,
-				``,
-				`[cli]`,
-				`  remote_config = ""`,
-				`  ttl = ""`,
-				`  last_checked = ""`,
-				``,
-				`[user]`,
-				`  token = "new_token"`,
-				`  email = "test@example.com"`,
-				``,
-				`[language]`,
-				`  [language.rust]`,
-				`    toolchain_version = ""`,
-				`    wasm_wasi_target = ""`,
-				`    fastly_sys_min = ""`,
-				`    fastly_sys_max = ""`,
-			},
+			wantFile: `[fastly]
+  api_endpoint = "https://api.fastly.com"
+
+[cli]
+  remote_config = ""
+  ttl = ""
+  last_checked = ""
+
+[user]
+  token = "new_token"
+  email = "test@example.com"
+
+[language]
+  [language.rust]
+    toolchain_version = ""
+    wasm_wasi_target = ""
+    fastly_sys_min = ""
+    fastly_sys_max = ""
+
+[starter-kits]
+`,
 		},
 		{
 			name: "invalid token",
@@ -300,7 +306,7 @@ func TestConfigure(t *testing.T) {
 			if testcase.wantError == "" {
 				p, err := ioutil.ReadFile(configFilePath)
 				testutil.AssertNoError(t, err)
-				testutil.AssertString(t, strings.Join(testcase.wantFile, "\n")+"\n", string(p))
+				testutil.AssertString(t, testcase.wantFile, string(p))
 			}
 		})
 	}
