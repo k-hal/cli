@@ -76,12 +76,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -99,12 +100,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -124,12 +126,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -151,12 +154,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -181,12 +185,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -213,12 +218,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -243,12 +249,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -273,12 +280,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -304,12 +312,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -333,12 +342,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -373,12 +383,13 @@ func TestInit(t *testing.T) {
 					Token: "123",
 					Email: "test@example.com",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -414,12 +425,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "rust",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-rust-default.git",
-						Branch:   "0.6.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					Rust: []config.ConfigStarterKit{
+						{
+							Name:   "Default",
+							Path:   "https://github.com/fastly/compute-starter-kit-rust-default.git",
+							Branch: "0.6.0",
+						},
 					},
 				},
 			},
@@ -439,12 +451,13 @@ func TestInit(t *testing.T) {
 				User: config.ConfigUser{
 					Token: "123",
 				},
-				StarterKits: []config.ConfigStarterKit{
-					{
-						Language: "assemblyscript",
-						Name:     "Default",
-						Path:     "https://github.com/fastly/compute-starter-kit-assemblyscript-default",
-						Tag:      "v0.2.0",
+				StarterKits: config.ConfigStarterKitLanguages{
+					AssemblyScript: []config.ConfigStarterKit{
+						{
+							Name: "Default",
+							Path: "https://github.com/fastly/compute-starter-kit-assemblyscript-default",
+							Tag:  "v0.2.0",
+						},
 					},
 				},
 			},
