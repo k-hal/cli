@@ -73,8 +73,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
@@ -112,8 +111,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
@@ -148,8 +146,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
@@ -187,8 +184,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
@@ -224,8 +220,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
@@ -264,8 +259,7 @@ func TestConfigure(t *testing.T) {
   [language.rust]
     toolchain_version = ""
     wasm_wasi_target = ""
-    fastly_sys_min = ""
-    fastly_sys_max = ""
+    fastly_sys_constraint = ""
 
 [starter-kits]
 `,
